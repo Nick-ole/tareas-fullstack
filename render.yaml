@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: tareas-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: CORS_ORIGIN
+        value: https://tareas-web.onrender.com
+  - type: web
+    name: tareas-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://tareas-api.onrender.com
